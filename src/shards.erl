@@ -70,6 +70,7 @@
   select/2, select/3, select/1,
   select_count/2,
   select_delete/2,
+  select_replace/2,
   select_reverse/2, select_reverse/3, select_reverse/1,
   setopts/2,
   tab2file/2, tab2file/3,
@@ -563,6 +564,17 @@ select_count(Tab, MatchSpec) ->
         NumDeleted :: non_neg_integer().
 select_delete(Tab, MatchSpec) ->
   call(Tab, select_delete, [Tab, MatchSpec]).
+
+%% @doc
+%% Wrapper to `shards_local:select_replace/3' and `shards_dist:select_replace/3'.
+%%
+%% @see shards_local:select_replace/3.
+%% @see shards_dist:select_replace/3.
+%% @end
+-spec select_replace(Tab :: atom(), MatchSpec :: ets:match_spec()) ->
+        NumReplaced :: non_neg_integer().
+select_replace(Tab, MatchSpec) ->
+  call(Tab, select_replace, [Tab, MatchSpec]).
 
 %% @doc
 %% Wrapper to `shards_local:select_reverse/3' and

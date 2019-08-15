@@ -74,6 +74,7 @@
   select/3,
   select_count/3,
   select_delete/3,
+  select_replace/3,
   select_reverse/3,
   tab2file/3, tab2file/4,
   tab2list/2,
@@ -445,6 +446,16 @@ select(Tab, MatchSpec, State) ->
       ) -> NumMatched :: non_neg_integer().
 select_count(Tab, MatchSpec, State) ->
   Map = {?SHARDS, select_count, [Tab, MatchSpec, State]},
+  Reduce = {fun(Res, Acc) -> Acc + Res end, 0},
+  mapred(Tab, Map, Reduce, State, r).
+
+-spec select_replace(
+        Tab       :: atom(),
+        MatchSpec :: ets:match_spec(),
+        State     :: shards_state:state()
+      ) -> NumReplaced :: non_neg_integer().
+select_replace(Tab, MatchSpec, State) ->
+  Map = {?SHARDS, select_replace, [Tab, MatchSpec, State]},
   Reduce = {fun(Res, Acc) -> Acc + Res end, 0},
   mapred(Tab, Map, Reduce, State, r).
 
