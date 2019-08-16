@@ -143,6 +143,8 @@ parse_opts([{sup_name, SupName} | Opts], Acc) when is_atom(SupName) ->
   parse_opts(Opts, Acc#{sup_name := SupName});
 parse_opts([{n_shards, N} | Opts], Acc) when is_integer(N), N > 0 ->
   parse_opts(Opts, Acc#{n_shards := N});
+parse_opts([{keypos, N} | Opts], Acc) when is_integer(N), N > 0 ->
+  parse_opts(Opts, Acc#{keypos := N, opts := [{keypos, N} | maps:get(opts, Acc)]});
 parse_opts([{pick_shard_fun, Val} | Opts], Acc) when is_function(Val) ->
   parse_opts(Opts, Acc#{pick_shard_fun := Val});
 parse_opts([{pick_node_fun, Val} | Opts], Acc) when is_function(Val) ->

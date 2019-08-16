@@ -52,8 +52,8 @@ t_list_shards(_Config) ->
 
 -spec t_key_from_object(shards_ct:config()) -> any().
 t_key_from_object(_Config) ->
-  1 = shards_lib:key_from_object([{1, 1}, {2, 2}, {3, 3}]),
-  "foo" = shards_lib:key_from_object({"foo", "bar"}).
+  1 = shards_lib:key_from_object(1, [{1, 1}, {2, 2}, {3, 3}]),
+  "foo" = shards_lib:key_from_object(1, {"foo", "bar"}).
 
 -spec t_iterator(shards_ct:config()) -> any().
 t_iterator(_Config) ->

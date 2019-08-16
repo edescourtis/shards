@@ -298,7 +298,7 @@ insert_new(Tab, ObjOrObjs, State) when is_tuple(ObjOrObjs) ->
 
 %% @private
 do_insert_new(Tab, Node, Objs, State) ->
-  Key = shards_lib:key_from_object(Objs),
+  Key = shards_lib:key_from_object(shards_state:keypos(State), Objs),
 
   case pick_node(shards_state:pick_node_fun(State), Key, get_nodes(Tab), r) of
     any ->

@@ -84,7 +84,7 @@ t_create_state(_Config) ->
 
   % create state using shards_state:new/3
   Fun = fun(X, Y, Z) -> (X + Y + Z) rem Y end,
-  State4 = shards_state:new(4, shards_dist, my_shards_sup, Fun),
+  State4 = shards_state:new(4, shards_dist, my_shards_sup, Fun, 1),
   shards_dist = shards_state:module(State4),
   my_shards_sup = shards_state:sup_name(State4),
   true = 4 == shards_state:n_shards(State4),
@@ -92,7 +92,7 @@ t_create_state(_Config) ->
   true = fun shards_lib:pick/3 == shards_state:pick_node_fun(State4),
 
   % create state using shards_state:new/4
-  State5 = shards_state:new(4, shards_dist, my_shards_sup, Fun, Fun),
+  State5 = shards_state:new(4, shards_dist, my_shards_sup, Fun, 1, Fun),
   shards_dist = shards_state:module(State5),
   my_shards_sup = shards_state:sup_name(State5),
   true = 4 == shards_state:n_shards(State5),

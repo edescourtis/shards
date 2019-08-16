@@ -9,7 +9,7 @@
 -export([
   shard_name/2,
   list_shards/2,
-  key_from_object/1,
+  key_from_object/2,
   iterator/1,
   get_pid/1,
   pick/3,
@@ -63,11 +63,11 @@ list_shards(Tab, NumShards) ->
 %% <li>`ObjOrObjs': Object or list of objects.</li>
 %% </ul>
 %% @end
--spec key_from_object(ObjOrObjs :: tuple() | [tuple()]) -> Key :: any().
-key_from_object(ObjOrObjs) when is_list(ObjOrObjs) ->
-  element(1, hd(ObjOrObjs));
-key_from_object(ObjOrObjs) when is_tuple(ObjOrObjs) ->
-  element(1, ObjOrObjs).
+-spec key_from_object(KeyPos :: pos_integer(), ObjOrObjs :: tuple() | [tuple()]) -> Key :: any().
+key_from_object(KeyPos, ObjOrObjs) when is_list(ObjOrObjs), is_integer(KeyPos) ->
+  element(KeyPos, hd(ObjOrObjs));
+key_from_object(KeyPos, ObjOrObjs) when is_tuple(ObjOrObjs), is_integer(KeyPos) ->
+  element(KeyPos, ObjOrObjs).
 
 %% @doc
 %% Returns a sequence of integers that starts with `0' and contains the
